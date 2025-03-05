@@ -1,0 +1,538 @@
+:root {
+    --primary-color: #FF69B4;
+    --secondary-color: #87CEEB;
+    --background-color: #FFF0F5;
+    --text-color: #FF1493;
+    --button-color: #FF69B4;
+    --button-hover: #FF1493;
+
+    /* Candy Theme */
+    --candy-primary: #FF69B4;
+    --candy-secondary: #87CEEB;
+    --candy-bg: #FFF0F5;
+    --candy-text: #FF1493;
+    
+    /* Forest Theme */
+    --forest-primary: #2E7D32;
+    --forest-secondary: #81C784;
+    --forest-bg: #E8F5E9;
+    --forest-text: #1B5E20;
+    
+    /* Cyber Theme */
+    --cyber-primary: #2196F3;
+    --cyber-secondary: #00BCD4;
+    --cyber-bg: #0A192F;
+    --cyber-text: #64FFDA;
+    
+    /* Cappuccino Theme */
+    --cappuccino-primary: #8B4513;
+    --cappuccino-secondary: #DEB887;
+    --cappuccino-bg: #FAEBD7;
+    --cappuccino-text: #4A2511;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    font-family: 'Fredoka', Arial, sans-serif;
+    color: var(--text-color);
+}
+
+.game-container {
+    text-align: center;
+    max-width: 840px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.screen {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.2);
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 3em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+canvas {
+    background: linear-gradient(135deg, #FFF0F5, #FFE4E1);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+    max-width: 100%;
+    height: auto;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.candy-button {
+    padding: 12px 25px;
+    font-size: 18px;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Fredoka', Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(255, 105, 180, 0.2);
+}
+
+.candy-button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.3);
+}
+
+.score, .high-score {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.score-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.total-score {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 5px 0;
+    color: var(--primary-color);
+}
+
+.theme-scores {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: var(--text-color);
+}
+
+.theme-scores span {
+    display: block;
+}
+
+.high-score, .last-score {
+    opacity: 0.9;
+}
+
+.theme-high-score, .theme-last-score {
+    font-weight: bold;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.difficulty {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.diff-btn {
+    padding: 8px 20px;
+    margin: 0 5px;
+    border: 2px solid var(--secondary-color);
+    background: white;
+    color: var(--secondary-color);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.diff-btn:hover, .diff-btn.selected {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.power-up {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: white;
+    animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.theme-select {
+    margin: 20px 0;
+}
+
+.theme-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.theme-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 25px;
+    border: 2px solid var(--candy-secondary);
+    background: white;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+.theme-btn .emoji {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.theme-btn .name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.theme-btn .special {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.controls-info {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+.controls-info h3 {
+    margin: 0 0 10px 0;
+    color: var(--primary-color);
+}
+
+.controls-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.rules-content {
+    margin-top: 20px;
+}
+
+.rules-content h3 {
+    color: #333;
+    margin-top: 15px;
+}
+
+.rules-content h4 {
+    color: #666;
+    margin-top: 10px;
+}
+
+.rules-content ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.rules-content li {
+    margin: 5px 0;
+}
+
+#rulesBtn {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#rulesBtn:hover {
+    background-color: #45a049;
+}
+
+/* Styles pour les règles */
+details {
+    margin-top: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+details summary {
+    cursor: pointer;
+    color: #4CAF50;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+details summary:hover {
+    color: #45a049;
+}
+
+.rules-content {
+    margin-top: 10px;
+}
+
+.rules-content h3 {
+    color: #333;
+    margin-top: 15px;
+    font-size: 1.1em;
+}
+
+.rules-content h4 {
+    color: #666;
+    margin-top: 10px;
+    font-size: 1em;
+}
+
+.rules-content ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.rules-content li {
+    margin: 5px 0;
+}
+
+/* Theme-specific styles */
+.theme-candy {
+    --primary-color: var(--candy-primary);
+    --secondary-color: var(--candy-secondary);
+    --background-color: var(--candy-bg);
+    --text-color: var(--candy-text);
+}
+
+.theme-forest {
+    --primary-color: var(--forest-primary);
+    --secondary-color: var(--forest-secondary);
+    --background-color: var(--forest-bg);
+    --text-color: var(--forest-text);
+}
+
+.theme-cyber {
+    --primary-color: var(--cyber-primary);
+    --secondary-color: var(--cyber-secondary);
+    --background-color: var(--cyber-bg);
+    --text-color: var(--cyber-text);
+}
+
+.theme-cappuccino {
+    --primary-color: var(--cappuccino-primary);
+    --secondary-color: var(--cappuccino-secondary);
+    --background-color: var(--cappuccino-bg);
+    --text-color: var(--cappuccino-text);
+}
+
+.theme-cyber {
+    color: #ffffff;
+}
+
+.theme-cyber .modal-content {
+    background-color: #1A1A2E;
+    color: #ffffff;
+    border-color: #64FFDA;
+}
+
+.theme-cyber .close {
+    color: #64FFDA;
+}
+
+.theme-cyber .close:hover {
+    color: #ffffff;
+}
+
+.theme-cyber #rulesBtn {
+    background-color: #64FFDA;
+    color: #1A1A2E;
+}
+
+.theme-cyber #rulesBtn:hover {
+    background-color: #00CED1;
+}
+
+.theme-cyber .rules-content h3,
+.theme-cyber .rules-content h4 {
+    color: #64FFDA;
+}
+
+.theme-cyber .candy-button {
+    background-color: var(--cyber-primary);
+    text-shadow: 0 0 5px var(--cyber-text);
+}
+
+/* Apply theme to buttons */
+.theme-candy .candy-button {
+    background-color: var(--candy-primary);
+}
+
+.theme-forest .candy-button {
+    background-color: var(--forest-primary);
+}
+
+.theme-cyber .candy-button {
+    background-color: var(--cyber-primary);
+    text-shadow: 0 0 5px var(--cyber-text);
+}
+
+.theme-cappuccino .candy-button {
+    background-color: var(--cappuccino-primary);
+}
+
+/* Theme-specific canvas backgrounds */
+.theme-candy canvas {
+    background: linear-gradient(135deg, var(--candy-bg), #FFE4E1);
+}
+
+.theme-forest canvas {
+    background: linear-gradient(135deg, var(--forest-bg), #90EE90);
+}
+
+.theme-cyber canvas {
+    background: linear-gradient(135deg, var(--cyber-bg), #1A365D);
+    box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
+}
+
+.theme-cappuccino canvas {
+    background: linear-gradient(135deg, var(--cappuccino-bg), #F5DEB3);
+}
+
+/* Theme-specific menu styles */
+.theme-candy .menu {
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+}
+
+.theme-forest .menu {
+    box-shadow: 0 0 20px rgba(46, 125, 50, 0.2);
+}
+
+.theme-cyber .menu {
+    box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+    border: 1px solid #64FFDA;
+}
+
+.theme-cappuccino .menu {
+    box-shadow: 0 0 20px rgba(139, 69, 19, 0.2);
+}
+
+/* Theme-specific button styles */
+.theme-cyber .button,
+.theme-cyber .diff-btn,
+.theme-cyber .theme-btn {
+    background-color: #64FFDA;
+    color: #1A1A2E;
+    border: none;
+    text-shadow: none;
+}
+
+.theme-cyber .button:hover,
+.theme-cyber .diff-btn:hover,
+.theme-cyber .theme-btn:hover {
+    background-color: #00CED1;
+}
+
+.theme-cyber .button.selected,
+.theme-cyber .diff-btn.selected,
+.theme-cyber .theme-btn.selected {
+    background-color: #00CED1;
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+}
+
+/* Score display for cyber theme */
+.theme-cyber .score-display {
+    color: #64FFDA;
+    text-shadow: 0 0 5px rgba(100, 255, 218, 0.5);
+}
+
+/* Controls info for cyber theme */
+.theme-cyber .controls-info {
+    color: #ffffff;
+}
+
+.theme-cyber .difficulty-info {
+    color: #64FFDA;
+}
+
+.theme-cyber .bonus-info {
+    color: #00CED1;
+}

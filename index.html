@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozy Breaker ☁️ ☕</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div id="menuScreen" class="screen">
+            <h1>Cozy Breaker ☁️ ☕</h1>
+            <div class="menu-content">
+                <div class="score-container">
+                    <div class="total-score">Meilleur Score Total: <span id="totalHighScore">0</span></div>
+                    <div class="total-score">Score Total Actuel: <span id="currentTotalScore">0</span></div>
+                </div>
+                
+                <div class="theme-select">
+                    <h2>Sélection du niveau:</h2>
+                    <div class="theme-buttons">
+                        <button class="theme-btn selected" data-theme="candy">
+                            <span class="emoji">🍬</span>
+                            <span class="name">Bonbons</span>
+                            <span class="special">Pouvoir: Caramel</span>
+                            <div class="theme-scores">
+                                <span class="high-score">Record: <span class="theme-high-score">0</span></span>
+                                <span class="last-score">Dernier: <span class="theme-last-score">0</span></span>
+                            </div>
+                        </button>
+                        <button class="theme-btn" data-theme="forest">
+                            <span class="emoji">🌳</span>
+                            <span class="name">Forêt</span>
+                            <span class="special">Pouvoir: Croissance</span>
+                            <div class="theme-scores">
+                                <span class="high-score">Record: <span class="theme-high-score">0</span></span>
+                                <span class="last-score">Dernier: <span class="theme-last-score">0</span></span>
+                            </div>
+                        </button>
+                        <button class="theme-btn" data-theme="cyber">
+                            <span class="emoji">🌌</span>
+                            <span class="name">Cyber</span>
+                            <span class="special">Pouvoir: Lasers</span>
+                            <div class="theme-scores">
+                                <span class="high-score">Record: <span class="theme-high-score">0</span></span>
+                                <span class="last-score">Dernier: <span class="theme-last-score">0</span></span>
+                            </div>
+                        </button>
+                        <button class="theme-btn" data-theme="cappuccino">
+                            <span class="emoji">☕</span>
+                            <span class="name">Cappuccino</span>
+                            <span class="special">Pouvoir: Chaleur</span>
+                            <div class="theme-scores">
+                                <span class="high-score">Record: <span class="theme-high-score">0</span></span>
+                                <span class="last-score">Dernier: <span class="theme-last-score">0</span></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="controls-info">
+                    <h3>Contrôles:</h3>
+                    <p>◀ ▶ ou Q D : Déplacer</p>
+                    <p>ESPACE ou CLIC : Détacher la balle / Tirer les lasers</p>
+                    <p class="difficulty-info">En mode Moyen/Difficile :</p>
+                    <p class="bonus-info">⬆️ Accélérateur (+10 pts) | ⬇️ Ralentisseur (-20 pts)</p>
+                </div>
+
+                <div class="difficulty">
+                    <h2>Difficulté:</h2>
+                    <button class="diff-btn selected" data-diff="easy">Facile</button>
+                    <button class="diff-btn" data-diff="medium">Moyen</button>
+                    <button class="diff-btn" data-diff="hard">Difficile</button>
+                </div>
+                <button id="startButton" class="candy-button">Jouer</button>
+            </div>
+        </div>
+        
+        <div id="gameScreen" class="screen hidden">
+            <canvas id="gameCanvas"></canvas>
+            <div class="controls">
+                <div class="score">Score: <span id="scoreValue">0</span></div>
+                <button id="menuButton" class="candy-button">Menu</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
