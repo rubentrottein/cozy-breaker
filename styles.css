@@ -123,7 +123,6 @@ canvas {
 }
 
 .theme-scores {
-    margin-top: 10px;
     font-size: 0.8em;
     color: var(--text-color);
 }
@@ -238,45 +237,6 @@ canvas {
     font-size: 14px;
 }
 
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow-y: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 .rules-content {
     margin-top: 20px;
@@ -421,11 +381,6 @@ details summary:hover {
     color: #64FFDA;
 }
 
-.theme-cyber .candy-button {
-    background-color: var(--cyber-primary);
-    text-shadow: 0 0 5px var(--cyber-text);
-}
-
 /* Apply theme to buttons */
 .theme-candy .candy-button {
     background-color: var(--candy-primary);
@@ -436,7 +391,8 @@ details summary:hover {
 }
 
 .theme-cyber .candy-button {
-    background-color: var(--cyber-primary);
+    background-color: var(--cyber-bg);
+    color: var(--cyber-text);
     text-shadow: 0 0 5px var(--cyber-text);
 }
 
@@ -486,7 +442,7 @@ details summary:hover {
 .theme-cyber .theme-btn {
     background-color: #64FFDA;
     color: #1A1A2E;
-    border: none;
+    box-shadow: 0 0 10px transparent;
     text-shadow: none;
 }
 

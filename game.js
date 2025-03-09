@@ -9,9 +9,9 @@ class Game {
         this.theme = 'candy';
         this.difficulty = 'easy';
         this.difficultySettings = {
-            easy: { ballSpeed: 4, paddleWidth: 120 },
-            medium: { ballSpeed: 6, paddleWidth: 100 },
-            hard: { ballSpeed: 8, paddleWidth: 80 }
+            easy: { ballSpeed: 3, paddleWidth: 120 },
+            medium: { ballSpeed: 5, paddleWidth: 100 },
+            hard: { ballSpeed: 7, paddleWidth: 80 }
         };
 
         // Score system
@@ -32,7 +32,7 @@ class Game {
                 colors: ['#FF69B4', '#87CEEB', '#FFB6C1', '#98FB98', '#DDA0DD'],
                 powerUps: {
                     sticky: { emoji: '🍯', color: '#FFD700', size: '30px' },
-                    expand: { emoji: '🍬', color: '#FF69B4', size: '30px' },
+                    bonus: { emoji: '🍬', color: '#FF69B4', size: '30px' },
                     multiball: { emoji: '🎈', color: '#87CEEB', size: '30px' }
                 },
                 ball: '#FF1493',
@@ -42,9 +42,9 @@ class Game {
             forest: {
                 colors: ['#2E7D32', '#81C784', '#4CAF50', '#66BB6A', '#A5D6A7'],
                 powerUps: {
-                    powerball: { emoji: '✨', color: '#E65100', size: '30px' },
                     expand: { emoji: '🌿', color: '#2E7D32', size: '30px' },
-                    multiball: { emoji: '🌳', color: '#1B5E20', size: '30px' }
+                    bonus: { emoji: '✨', color: '#E65100', size: '30px' },
+                    multiball: { emoji: '🍒', color: '#1B5E20', size: '30px' }
                 },
                 ball: '#1B5E20',
                 paddle: '#228B22',
@@ -54,7 +54,7 @@ class Game {
                 colors: ['#2196F3', '#00BCD4', '#4FC3F7', '#80DEEA', '#B3E5FC'],
                 powerUps: {
                     laser: { emoji: '🔫', color: '#64FFDA', size: '30px' },
-                    expand: { emoji: '💠', color: '#2196F3', size: '30px' },
+                    bonus: { emoji: '💠', color: '#2196F3', size: '30px' },
                     multiball: { emoji: '⚡', color: '#00BCD4', size: '30px' }
                 },
                 ball: '#64FFDA',
@@ -65,14 +65,17 @@ class Game {
                 colors: ['#8B4513', '#D2691E', '#DEB887', '#F5DEB3', '#FFA07A'],
                 powerUps: {
                     heat: { emoji: '☕️', color: '#FF4500', size: '30px' },
-                    expand: { emoji: '🥛', color: '#8B4513', size: '30px' },
-                    multiball: { emoji: '🌮', color: '#D2691E', size: '30px' }
+                    bonus: { emoji: '🧁', color: '#8B4513', size: '30px' },
+                    multiball: { emoji: '🍩', color: '#D2691E', size: '30px' }
                 },
                 ball: '#D2691E',
                 paddle: '#8B4513',
                 pattern: this.drawCappuccinoPattern.bind(this)
             }
         };
+        
+        // Activer le power-up sticky au démarrage
+        this.activatePowerUp('sticky');
         
         // Game elements
         this.paddle = {
@@ -104,16 +107,17 @@ class Game {
         this.powerUps = [];
         this.powerUpTypes = {
             sticky: { emoji: '🍯', color: '#FFD700', size: '30px' },
-            expand: { emoji: '🍬', color: '#FF69B4', size: '30px' },
+            bonus: { emoji: '🍬', color: '#FF69B4', size: '30px' },
             multiball: { emoji: '🎈', color: '#87CEEB', size: '30px' }
         };
         this.powerUpActive = null;
+
         
-        this.lasers = [];
         
         this.initBricks();
         this.setupEventListeners();
         this.showMenu();
+
     }
     
     showMenu() {
@@ -253,11 +257,11 @@ class Game {
                 [1,0,1,0,0,1,0,1]
             ],
             cappuccino: [
+                [0,0,1,1,1,1,0,0],
+                [0,1,1,1,1,1,1,0],
                 [1,1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1,1]
+                [0,1,1,1,1,1,1,0],
+                [0,0,1,1,1,1,0,0]
             ]
         };
         return layouts[this.theme];
@@ -325,6 +329,9 @@ class Game {
                         ball.dy = -Math.abs(ball.dy);
                     }
                 });
+            }
+            if (this.gameStarted) {
+                this.activateSpecialPower();
             }
         });
         
@@ -571,7 +578,7 @@ class Game {
     }
     
     activatePowerUp(type) {
-        this.powerUpActive = { type, time: Date.now() };
+        this.powerUpActive = { type, time: Date.now() }; 
         
         switch(type) {
             case 'sticky':
@@ -580,15 +587,21 @@ class Game {
             case 'laser':
                 // Les lasers sont gérés manuellement
                 break;
-            case 'growth':
+            case 'expand': 
                 // Pouvoir de la forêt - Agrandit le paddle
                 this.paddle.width *= 1.5;
-                setTimeout(() => {
-                    this.paddle.width = this.difficultySettings[this.difficulty].paddleWidth;
-                    if (this.powerUpActive && this.powerUpActive.type === 'growth') {
-                        this.powerUpActive = null;
-                    }
-                }, 5000);
+                // Ne pas réinitialiser la paddle
+                break;
+            case 'multiball': 
+                // Ajouter une nouvelle balle
+                const newBall = {
+                    x: this.paddle.x + this.paddle.width / 2,
+                    y: this.paddle.y - 10,
+                    radius: 10,
+                    dx: Math.random() * 2 - 1, // Vitesse aléatoire
+                    dy: -5 // Vitesse vers le haut
+                };
+                this.balls.push(newBall);
                 break;
             case 'heat':
                 // Pouvoir cappuccino - Traverse les briques
@@ -598,11 +611,6 @@ class Game {
                         if (ball) ball.powerball = false;
                     }, 5000);
                 });
-                setTimeout(() => {
-                    if (this.powerUpActive && this.powerUpActive.type === 'heat') {
-                        this.powerUpActive = null;
-                    }
-                }, 5000);
                 break;
             default:
                 // Bonus de points pour les autres power-ups
@@ -616,6 +624,15 @@ class Game {
     draw() {
         // Clear canvas
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Dessiner les balles
+        this.balls.forEach(ball => {
+            this.ctx.beginPath();
+            this.ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = this.themeSettings[this.theme].ball; // Couleur de la balle
+            this.ctx.fill();
+            this.ctx.closePath();
+        });
         
         // Draw lasers
         this.ctx.fillStyle = this.themeSettings[this.theme].ball;
@@ -645,7 +662,8 @@ class Game {
             this.ctx.closePath();
             this.ctx.shadowBlur = 0;
         });
-        
+
+
         // Draw bricks
         this.bricks.forEach(brick => {
             this.ctx.fillStyle = brick.color;
